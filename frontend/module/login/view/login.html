@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <body ng-app="controller_login">
+          <!--Login-->
+          <div class="login-page" ng-show="show_login">
+            <div class="form">
+              <form class="login-form" id="login_form">
+                <input ng-model = "username" type="text" placeholder="username" name="username" required>
+                <input ng-model = "password" type="password" placeholder="password" name="password" required>
+                <input class="button" id="login" type="button" value="Login" ng-click = "login()"></input>
+                <p class="message">Not registered? <a href="#/register">Create an account</a></p>
+                <p class="message">Forgot <a href="#/recover">password?</a></p>
+                <a class="button" id="login_google" type="button" ng-click="login_google()">Login Google</a>
+              </form>
+            </div>
+          </div>
+          <!--EndLogin-->
+          <!--Register-->
+          <div class="login-page" ng-show="show_register">
+            <div class="form">
+              <form id="register_form" name="register_form" class="login-form" method="post">
+                <input ng-model="register_username" ng-pattern="regex_username" type="text" id="username" name="username" placeholder="username" required/>
+                <font color="red">
+                  <span class="text-danger" ng-show="register_form.username.$error.required && (register_form.username.$dirty || register_form.username.$touched)">Introduzca un nombre</span>
+                </font>
+                <input ng-model="register_password" ng-pattern="regex_password" type="password" id="password"name="password" placeholder="password" required/>
+                <font color="red">
+                  <span class="text-danger" ng-show="register_form.password.$error.required && (register_form.password.$dirty || register_form.password.$touched)">Introduzca una contraseña</span>
+                </font>
+                <input ng-model="register_email" ng-pattern="regex_email" type="text" id="email" name="email" placeholder="email address" required/>
+                <font color="red">
+                  <span class="text-danger" ng-show="register_form.email.$error.required && (register_form.email.$dirty || register_form.email.$touched)">Introduzca un email</span>
+                </font>
+                <input class="button_register" ng-click = "register()" id="register" type="button" value="Register" ng-disabled = "register_form.username.$invalid || register_form.email.$invalid || register_form.password.$invalid"/>
+              </form>
+            </div>
+          </div>
+          <!--EndRgister-->
+          <!--Recover-->
+          <div class="login-page" ng-show="show_recover">
+            <div class="form">
+              <form class="recover-form" id="recover_form">
+                <input ng-model="recover_email" type="text" name="email" placeholder="email address" required/>
+                <input class="button" id="recover" type="button" value="Recover" ng-click="recover()"></input>
+                <p class="message">Not registered? <a href="#/register">Create an account</a></p>
+              </form>
+            </div>
+          </div>
+          <!--EndRecover-->
+          <!--RecoverPassword-->
+          <div class="login-page" ng-show="show_recoverpassword">
+            <div class="form">
+              <form class="recover-form" id="recover_password_form" method="post">
+                <input ng-model="recover_PW" type="password" name="password" placeholder="New Password" required/>
+                <input ng-click="recover_password()" class="button" id="recover_password" type="button" value="Recover Password"></input>
+              </form>
+            </div>
+          </div>
+          <!--EndRecoverPassword-->
+    </body>
+</html>

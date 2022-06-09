@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <body ng-app="controller_shop">
+        <div ng-show="show_list_filters">
+            <aside class="mt-Filter-aside">
+                <form autocomplete="on" method="post" id="form_filter" name="form_filter">         
+                    <div class="texto_higtlike" >
+                        <div class="mt-SearchTags-label" ng-show="show_higtlike">            
+                            <div class="mt-SearchSidebar-tags">
+                            <p class="mt-SearchTags-label">Tu búsqueda</p>
+                        </div>
+                    </div>
+                    <div class="higtlike" >
+                        <div class="sui-AtomTag sui-AtomTag-small sui-AtomTag--responsive sui-AtomTag--white sui-AtomTag-hasClose" ng-show="show_higtlike" ng-repeat="filtros in filtro_scope">
+                            <span class="sui-AtomTag-label">{{filtros}}</span>
+                        </div>
+                    </div>
+                    <div class="Delete_hisgtlike">
+                        <div class="mt-SearchTags-reset" ng-show="show_higtlike">
+                            <a role="button" class="sui-AtomButton" ng-click="filter_remove()">
+                                <span type="button" class="sui-AtomButton-inner">Borrar Filtros</span>
+                            </a>
+                        </div>
+                    </div>      
+                    <div class="filters">
+                        <label for="" class="label_filter">Ordenar Por</label>
+                        <select name="order" class="select_filter" id="checkOrder" ng-model="filter_Order">
+                            <option value="" id="order">Toda</option>
+                            <option value="1" id="order">Precio</option>
+                            <option value="2" id="order">Km</option>
+                        </select>
+                        <label for="" class="label_filter">Marca</label>
+                        <select name="brand" class="select_filter" id="checkBrand" ng-model="filter_Brand">
+                            <option value="" id="brand">Todas las marcas</option>
+                            <option value="1" id="brand">Mercedes</option>
+                            <option value="2" id="brand">Audi</option>
+                            <option value="3" id="brand">BMW</option>
+                            <option value="4" id="brand">Lamborguini</option>
+                            <option value="5" id="brand">Porche</option>
+                            <option value="6" id="brand">Tesla</option>
+                            <option value="7" id="brand">VolksWagen</option>
+                        </select>
+                        <label for="" class="label_filter">Kilometros</label>
+                        <select name="kilometros" class="select_filter" id="checkKilometros" ng-model="filter_Kilometers">
+                            <option value="" id="kilometros">Hasta</option>
+                            <option value="2500" id="kilometros">Hasta 2500</option>
+                            <option value="5000" id="kilometros">Hasta 5000</option>
+                            <option value="10000" id="kilometros">Hasta 10000</option>
+                            <option value="20000" id="kilometros">Hasta 20000</option>
+                            <option value="30000" id="kilometros">Hasta 30000</option>
+                            <option value="50000" id="kilometros">Hasta 50000</option>
+                            <option value="100000" id="kilometros">Hasta 100000</option>
+                        </select>
+                        <label for="" class="label_filter">Combustible</label>
+                        <select name="type" class="select_filter" id="checkType" ng-model="filter_Combustible">
+                            <option value="" id="type">Todos los combustibles</option>
+                            <option value="1" id="type">Gasolina</option>
+                            <option value="2" id="type">Hibrido</option>
+                            <option value="3" id="type">Electico</option>
+                        </select>
+                        <label for="" class="label_filter">Cambio</label>
+                        <select name="setting" class="select_filter" id="checkSetting" ng-model="filter_Change">
+                            <option value="" id="setting">Todos</option>
+                            <option value="1" id="setting">Manual</option>
+                            <option value="2" id="setting">Automatico</option>
+                        </select>
+                        <div class="button_filter">
+                            <input type="button" id="filter" value="Filtrar" ng-click="filter_products(filter_Order, filter_Brand, filter_Kilometers, filter_Combustible, filter_Change)"></input>
+                        </div>
+                    </div>
+                </form>
+            </aside>
+        </div>
+        <div class="not_products"ng-show="show_not_products"><h3>No hay coches</h3></div>
+        <section class="mt-AdsList-content">
+            <div class="cat_cars">
+                <div class="mt-ListAds" ng-repeat="car in cars" ng-show="show_list_product">
+                    <div class='details' id='{{car.id}}'>
+                        <div class='mt-AnimationFadeOut mt-ListAds-item mt-CardAd mt-CardBasic'><div>
+                        <div class='sui-AtomCard sui-AtomCard--responsive' role='button'>
+                            <div class='sui-AtomCard-media'>     
+                                <picture id='{{car.id}}' ng-click="load_details()">
+                                    <img class='sui-ImageSlider-image' alt='' aria-selected='true' src='frontend/{{car.img_car}}'>
+                                </picture>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='sui-AtomCard-info container_junto'>
+                    <h5 class='mt-CardAd-attrItem'>Precio</h5>
+                    <h3 class='mt-TitleBasic-title mt-TitleBasic-title--s mt-TitleBasic-title--currentColor'>{{car.price}}€</h3>
+                    <h2 class='mt-CardBasic-title' data-testid='card-ad-title'>{{car.brand_name}}  {{car.model_name}}</h2>
+                    <ul class='mt-CardAd-attr'>
+                        <li class='mt-CardAd-attrItem'>{{car.province}}</li>
+                        <li class='mt-CardAd-attrItem'>{{car.category_name}}</li>
+                        <li class='mt-CardAd-attrItem'>{{car.fecha}}</li>
+                        <li class='mt-CardAd-attrItem'>{{car.kilometres}} km</li>
+                    </ul>        
+                </div>
+                <div>
+                    <div class='list__heart' id='{{car.id}}' ng-click="add_favs()"> 
+                        <i id='like_{{car.id}}' class='fas fa-heart {{car.like}}'></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="map_list_car" id="maps" style="width: 700px; height: 500px;" ng-show="show_list_product"></div>
+        <div class="modaldet_car"></div>
+        <section class="view_car_shop" ng-show="show_details">
+            <div class="carousel_shop">
+                <div class="carousel__container">
+                    <div class="carousel__shop">
+                        <carousel carousel-controls interval="5000">
+                            <slide ng-repeat="list_products_img in list_products_imgs">
+                                <img class='carousel__img' src='frontend/{{list_products_img.img_car}}'>
+                            </slide>
+                        </carousel>
+                    </div>
+                </div>
+                <div class="carousel__indicator"></div>
+                <div class="view_information_car" ng-repeat="list_product in list_products">
+                    <div class="mt-Detail-panelAdInfoWrapper" id="">
+                        <div class="mt-PanelAdInfo"><div class="mt-PanelAdInfo-title">
+                            <div class="mt-TitleBasic-titleWrapper mt-TitleBasic-titleWrapper--black mt-TitleBasic-titleWrapper--left">
+                                <h1 class="mt-TitleBasic-title mt-TitleBasic-title--s mt-TitleBasic-title--black">{{list_product.brand_name}} {{list_product.model_name}}</h1>
+                            </div>
+                        </div>
+                        <div class="mt-PanelAdInfo-price">
+                            <div class="mt-CardAdPrice mt-CardAdPrice--extended CardAdInformacionleft">
+                                <div class="mt-CardAdPrice-cash">
+                                    <span class="mt-CardAdPrice-cashLabel">Precio al contado</span>
+                                    <div class="mt-CardAdPrice-cashAmount" data-testid="card-adPrice-price">
+                                        <div class="mt-TitleBasic-titleWrapper mt-TitleBasic-titleWrapper--currentColor mt-TitleBasic-titleWrapper--left">
+                                            <h3 class="mt-TitleBasic-title mt-TitleBasic-title--s mt-TitleBasic-title--currentColor"> {{list_product.price}} €</h3>
+                                        </div>
+                                    </div>
+                                    <span class="mt-CardAdPrice-cashFooter mt-CardAdPrice-cashFooter--withTaxes">IVA incluido</span>
+                                </div>
+                            </div>
+                            <div class="mt-CardAdPrice mt-CardAdPrice--extended CardAdInformacionleft CardAdInformacionmarginleft">
+                                <div class="mt-CardAdPrice-cash">
+                                    <span class="mt-CardAdPrice-cashLabel">Cuota desde</span>
+                                    <div class="mt-CardAdPrice-cashAmount" data-testid="card-adPrice-price">
+                                        <div class="mt-TitleBasic-titleWrapper mt-TitleBasic-titleWrapper--currentColor mt-TitleBasic-titleWrapper--left">
+                                            <h3 class="mt-TitleBasic-title mt-TitleBasic-title--s mt-TitleBasic-title--currentColor">295 €/mes</h3>
+                                        </div>
+                                    </div>
+                                    <span class="mt-CardAdPrice-cashFooter mt-CardAdPrice-cashFooter--withTaxes">Importe mínimo</span>
+                                </div>
+                            </div>
+                            <div class="mt-CardAdPrice mt-CardAdPrice--extended CardAdInformacionleft CardAdInformacionmarginleft">
+                                <div class="mt-CardAdPrice-cash">
+                                    <span class="mt-CardAdPrice-cashLabel">Garantía 1 año</span>
+                                        <div class="mt-CardAdPrice-cashAmount" data-testid="card-adPrice-price">
+                                            <div class="mt-TitleBasic-titleWrapper mt-TitleBasic-titleWrapper--currentColor mt-TitleBasic-titleWrapper--left">
+                                                <h3 class="mt-TitleBasic-title mt-TitleBasic-title--s mt-TitleBasic-title--currentColor">1 año</h3>
+                                            </div>
+                                        </div>
+                                        <span class="mt-CardAdPrice-cashFooter mt-CardAdPrice-cashFooter--withTaxes">12 meses</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-TitleBasic-titleWrapper mt-TitleBasic-titleWrapper--currentColor mt-TitleBasic-titleWrapper--left icon_shop">
+                                <h3 class="mt-TitleBasic-title mt-TitleBasic-title--s mt-TitleBasic-title--currentColor">
+                                    <img src="frontend/view/img/icons/location.png" style = "max-width: 100%; max-height: 50px;">{{list_product.province}} {{list_product.town}}</img>
+                                    <img src="frontend/view/img/icons/door_car.png" style = "max-width: 100%; max-height: 50px;"> {{list_product.puertas}}</img>
+                                </h3>
+                                <div class="list__heart_details">
+                                    <div class="list__heart" id='{{list_product.id}}' ng-click="add_favs()">
+                                        <i class="fas fa-heart {{list_product.like}}"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div ng-show="show_details" class="form_details">
+            <aside class="mt-Detail-inner mt-Detail-aside">
+                <div class="mt-Detail-formContactSellerWrapper">
+                    <div class="Form_Aside_Car">
+                        <div>
+                            <div id='form-contact-seller-id' class='mt-FormContactSeller'>
+                                <div class='mt-FormContactSeller-callSeller'>
+                                    <p class='mt-LeadPhoneCall-link' data-testid='lead-phone-call-link' arial-label='Ver teléfono'>
+                                        <span class='mt-LeadPhoneCall-linkText mt-LeadPhoneCall-linkText--medium'>Ver teléfono</span>
+                                    </p>
+                                </div>
+                                <form aria-label='contact form' class='formulario_car'>
+                                    <div class='mt-FormContactSeller-formField'>
+                                        <div class='sui-MoleculeField-labelContainer'>
+                                            <div class='sui-MoleculeField-nodeLabelContainer'>
+                                                <lab for='Contacta con el anunciante' class='sui-AtomLabel'>Contacta con el anunciante</label>
+                                            </div>
+                                        </div>
+                                        <div class='sui-MoleculeField-inputContainer'>
+                                            <textarea class='tot textarea' id='Contacta con el anunciante' placeholder='Estoy interesado/a en este vehículo...' tabindex='0' class='sui-AtomTextarea sui-AtomTextarea--short'></textarea>
+                                        </div>
+                                    </div>
+                                    <div class='mt-FormContactSeller-formField'>
+                                        <div class='sui-MoleculeField'>
+                                            <div class='sui-MoleculeField-inputContainer'>
+                                                <input class='sui-AtomInput-input sui-AtomInput-input-m' tabindex='0' id='Tu nombre' placeholder='Nombre' value=''>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='mt-FormContactSeller-formField'>
+                                        <div class='sui-MoleculeField'>
+                                            <div class='sui-MoleculeField-inputContainer'>
+                                                <input class='sui-AtomInput-input sui-AtomInput-input-m' tabindex='0' id='Tu email' placeholder='Email' type='email' value=''>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='mt-FormContactSeller-formField'>
+                                        <div class='sui-MoleculeField'>
+                                            <div class='sui-MoleculeField-inputContainer'>
+                                                <input class='sui-AtomInput-input sui-AtomInput-input-m' tabindex='0' id='Tu teléfono' placeholder='Teléfono' type='tel' value=''>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='mt-FormContactSeller-formField'>
+                                        <div class='sui-MoleculeCheckboxField'>
+                                            <div class='sui-MoleculeField sui-MoleculeField--inline sui-MoleculeField--inline-reverse'>
+                                                <div class='sui-MoleculeField-labelContainer'>
+                                                    <label class='sui-AtomCheckbox sui-AtomCheckbox--medium'>
+                                                        <input type='checkbox' id='terms_and_conditions' name='terms_and_conditions' intermediate=''>
+                                                    </label>
+                                                    <div class='sui-MoleculeField-nodeLabelContainer'>
+                                                        <label class='mt-FormContactSeller-termsAndConditions' for='terms_and_conditions' name='terms_and_conditions'>Acepto las 
+                                                            <a href='/condiciones-de-uso/' class='mt-FormContactSeller-link' target='_blank'>condiciones de uso</a> y la
+                                                            <a href='/condiciones-de-uso/#proteccion-datos' class='mt-FormContactSeller-link' target='_blank'>información básica de protección de datos</a>.
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class='sui-MoleculeField-inputContainer sui-MoleculeField-inputContainer--aligned'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='mt-FormContactSeller-contactButton mt-FormContactSeller-contactButtonGroup'>
+                                        <div class='mt-FormContactSeller-submit'>
+                                            <button shape='circular' class='sui-AtomButton sui-AtomButton--accent sui-AtomButton--solid sui-AtomButton--center sui-AtomButton--large sui-AtomButton--fullWidth sui-AtomButton--circular'>
+                                                <span class='sui-AtomButton-inner'>Contactar</span>
+                                            </button>
+                                        </div>
+                                        <div class='mt-FormContactSeller-callMeBackButton'>
+                                            <button id='6hzkt5upuvyovm0' shape='circular' class='sui-AtomButton sui-AtomButton--primary sui-AtomButton--outline sui-AtomButton--center sui-AtomButton--large sui-AtomButton--fullWidth sui-AtomButton--circular'>
+                                                <span class='sui-AtomButton-inner'>Llamadme</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <div class="maps_details" id="maps_details"></div>
+        <div class="more_related" style = 'margin-bottom: 30%;' ng-show="show_details">
+            <div class="car_content" ng-repeat="car in more_relateds">
+                <div class="sui-CardArticle details" id='{{car.id}}' ng-click="load_details()">
+                    <div class="sui-CardArticle-media">
+                        <div class="sui-ImageLazyLoad sui-ImageLazyLoad--ratio-16-9">
+                            <div class="sui-ImageLazyLoad-imageWrap" >
+                                <img alt="" class="sui-ImageLazyLoad-image" src="frontend/{{car.img_car}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sui-CardArticle-info">
+                        <div class="sui-CardArticle-infoInner">
+                            <span class="sui-AtomTag-label" title="ACTUALIDAD">{{car.category_name}}</span>
+                        </div>
+                    </div>
+                    <div class="sui-CardArticle-content">
+                        <header class="sui-CardArticle-title">{{car.brand_name}}  {{car.model_name}}</header>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="team" ng-show="show_details" id="{{car.id}}">
+            <div class="container">
+                <div class="section-header text-center">
+                    <div id="loadsugest">
+                        <div class="redireccion" ng-show="show_more_cars" ng-click="more()"><h1>Mas Coches</h1></div>
+                        <div class="redireccion" ng-show="Show_more_not_cars"><h1>No Hay Mas Coches</h1></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

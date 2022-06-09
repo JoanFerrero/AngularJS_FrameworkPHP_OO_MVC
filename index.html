@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app = "AngularJS_FrameworkPHP_OO_MVC" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ShopCar</title>
+		<!--========== ANGULAR JS ==========-->
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
+		
+        <!--========== CONTROLLER AND SERVICES ==========-->
+        <script src = "frontend/router.js"></script>
+        <script src = "frontend/apiconnector.js"></script>
+        <script type = "text/javascript" src = "frontend/module/contact/ctrl/ctrl_contact.js"></script>
+        <script type = "text/javascript" src = "frontend/module/home/ctrl/ctrl_home.js"></script>
+        <script type = "text/javascript" src = "frontend/module/shop/ctrl/ctrl_shop.js"></script>
+        <script type = "text/javascript" src = "frontend/module/shop/services/services_shop.js"></script>
+        <script type = "text/javascript" src = "frontend/module/shop/services/services_maps.js"></script>
+        <script type = "text/javascript" src = "frontend/module/search/services/services_search.js"></script>
+        <script type = "text/javascript" src = "frontend/module/login/ctrl/ctrl_login.js"></script>
+        <script type = "text/javascript" src = "frontend/module/login/service/services_login.js"></script>
+        <script type = "text/javascript" src = "frontend/module/login/service/services_social.js"></script>
+        <script type = "text/javascript" src = "frontend/module/login/service/services_securitylogin.js"></script>
+
+        <!--========== GLIDER =============-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
+
+        <!--========== Carrousel ===========-->
+        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+        <link rel = "stylesheet" href = "//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+        <!--========== MapBox =============-->
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet'/>
+
+        <!--========== BOX ICONS ==========-->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <!--========== CSS ==========-->
+        <link rel="stylesheet" href="frontend/view/css/style.css">
+
+        <!--=======BOOTSTRAP======-->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+        <!--========== TOASTR ==========-->
+        <link rel = "stylesheet" href = "https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+        <script src = "https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>      
+
+        <!--=======AWESOME======-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!--========== FIREBASE ==========-->
+        <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+    </head>
+    <body>
+        <div ng-include = '"frontend/view/inc/header.view.html"'></div>
+        <div ng-include = '"frontend/view/inc/menu.view.html"'></div>
+        <div ng-view autoscroll = "true"></div>
+        <div ng-include = '"frontend/view/inc/footer.view.html"'></div>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        <div class="nav-bar">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                    <a href="#" class="navbar-brand">MENU</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto">
+                            <a href="#/home" class="nav-item nav-link">Home</a>
+                            <a href="#/shop" class="nav-item nav-link">shop</a>
+                            <a href="#/contact" class="nav-item nav-link">Contact</a>
+                        </div>
+                        <form class="search" id="form_serch">
+							<select id="drop_category" class="drop1" ng-model="selected_category" ng-change="click_brand(selected_category)">
+                                <option value="">Select a Category</option>
+								<option ng-repeat="category_search in categorys_search">{{category_search.category_name}}</option>
+							</select>
+						
+							<select id="drop_brands" class="drop2" ng-model="selected_brand">
+								<option value="">Select a brand</option>
+                                <option ng-repeat="brand_search in brands_search">{{brand_search.brand_name}}</option>
+							</select>
+							
+							<div class="autocomplete"> 
+                                <input type="text" id="autocom" ng-model="autocomplete" ng-change="click_autocomplete(selected_category, selected_brand, autocomplete)"/>
+                                <div id="search_auto">
+                                    <div class="searchElement" id="{{autocom.town}}" ng-repeat="autocom in autocoms" ng-click="click_search(selected_category, selected_brand, autocom.town)">{{autocom.town}}</div>
+                                </div>
+   						 	</div>	
+   						
+							<div class="click_button"><input type="button" value="search" id="search-btn" ng-click="click_search(selected_category, selected_brand, autocom.town)"/></div>
+           			    </form>
+                        <div class="ml-auto">
+                            <a ng-show="show_login_menu" class="btn btn-custom" href="#/login">Login</a>
+                            <a ng-show="show_logout" class="btn btn-custom" href="#/logout">Log Out</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </body>
+</html>
