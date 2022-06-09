@@ -1,5 +1,7 @@
-<h1 dir="auto">Framework_PHP_OO_MVC_JQuery</h1>
+<h1 align="center" dir="auto">ShopCar | Framework_PHP_OO_MVC_JQuery</h1>
 <p dir="auto">This is my second project in 1DAW</p>
+<h2 dir="auto">What is ShopCar</h2>
+<p>It is a car sales website where you can cars, log in through the application or with google, you can add cars to favorites and locate them using a map.</p>
 <h2 dir="auto">Functionality</h2>
 <p dir="auto">This application has 4 main modules:</p>
 <table>
